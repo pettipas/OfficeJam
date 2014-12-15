@@ -6,12 +6,18 @@ public class FireManager : MonoBehaviour {
 
 	[SerializeField]
 	protected GameOverManager gameOverManager;
+
+	public static FireManager Instance;
 	[SerializeField]
 	protected ParticleSystem mainFire;
 	[SerializeField]
 	protected List<ParticleSystem> additionalFires;
 
 	protected List<int> enabledFires;
+
+	void Awake(){
+		Instance = this;
+	}
 
 	// Use this for initialization
 	void Start () {
