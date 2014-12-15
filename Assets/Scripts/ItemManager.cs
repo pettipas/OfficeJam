@@ -10,10 +10,6 @@ public class ItemManager : MonoBehaviour {
 		public string itemName;
 	}
 
-	// GUI Interaction
-	[SerializeField]
-	protected Image itemSelectionImage;
-
 	// list population
 	[SerializeField]
 	protected List<Image> itemImages;
@@ -33,6 +29,7 @@ public class ItemManager : MonoBehaviour {
 		items = new List<Item>();
 		for (int i = 0; i < itemImages.Count; i++) {
 			items[i].itemImage = itemImages[i];
+			items[i].itemImage.enabled = false;
 			items[i].itemName = itemNames[i];
 		}
 
@@ -43,6 +40,14 @@ public class ItemManager : MonoBehaviour {
 		rotateTimer = 1.0F;
 		rotateSpeed = 1.0F;
 		currentItemIndex = 0;
+
+		// disable all of the item images
+		foreach (Item it in items) {
+			it.itemImage.enabled = false;
+		}
+
+		// enable the currently visible one
+		items[currentItemIndex].itemImage.enabled = true;
 	}
 
 	void Update () {
@@ -51,15 +56,37 @@ public class ItemManager : MonoBehaviour {
 		rotateTimer -= Time.deltaTime /rotateSpeed;
 		if (rotateTimer <= 0.0F) {
 
-			// The timer has reached zero. Change the current item
-			currentItemIndex++;
-			if (currentItemIndex >= items.Count) {
-				currentItemIndex = 0;
-			}
+			ChangeItemImage ();
 
 			// reset the timer
 			rotateTimer = 1.0F;
 		}
+	}
+
+
+	/// <summary>
+	/// Increments to the next item in the item order
+	/// </summary>
+	public void ChangeItemImage () {
+
+		int index = currentItemIndex;
+		index++;
+
+		if (currentItemIndex >= items.Count) {
+			currentItemIndex = 0;
+		}
+	}
+
+	public void ChangeItemImage (int newItemIndex) {
+
+		// disable the current item image
+		items[currentItemIndex].itemImage.enabled = false;
+
+		//Change the current item
+		currentItemIndex = newItemIndex;
+		
+		// enable the new image
+		items[currentItemIndex].itemImage.enabled = true;
 	}
 
 
