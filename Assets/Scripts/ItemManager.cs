@@ -29,24 +29,29 @@ public class ItemManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		// initaialize the item list;
+		// create the item list
 		items = new List<Item>();
-		for (int i = 0; i < itemImages.Count; i++) {
-			Item it = new Item ();
-			it.itemImage = itemImages[i];
-			it.itemImage.enabled = false;
-			it.itemName = itemNames[i];
-			it.itemGameObject = itemGameObjects[i];
-
-			// add it to the list
-			items.Add (it);
-		}
 
 		// initialize the item list;
 		Initialize ();
 	}
 
 	public void Initialize () {
+
+		// initaialize the item list;
+		items.Clear ();
+		for (int i = 0; i < itemImages.Count; i++) {
+			Item it = new Item ();
+			it.itemImage = itemImages[i];
+			it.itemImage.enabled = false;
+			it.itemName = itemNames[i];
+			it.itemGameObject = itemGameObjects[i];
+			
+			// add it to the list
+			items.Add (it);
+		}
+
+		// reset the timer and item selection variables
 		rotateTimer = 1.0F;
 		rotateSpeed = 1.0F;
 		currentItemIndex = 0;
