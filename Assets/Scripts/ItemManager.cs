@@ -92,6 +92,10 @@ public class ItemManager : MonoBehaviour {
 			rotateTimer = 1.0F;
 		}
 	}
+
+	public void IncreaseSpeed () {
+		rotateSpeed -= (0.01F);
+	}
 	
 	/// <summary>
 	/// Increments to the next item in the item order

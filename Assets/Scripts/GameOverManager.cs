@@ -3,13 +3,25 @@ using System.Collections;
 
 public class GameOverManager : MonoBehaviour {
 
-	// Use this for initialization
+
+
+	[HideInInspector]
+	public bool isGameOver = false;
+
 	void Start () {
-	
+		Initialize ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void Initialize () {
+		isGameOver = false;
+	}
+
+	public void EndGame () {
+		isGameOver = true;
+		StartCoroutine (endGame());
+	}
+
+	protected IEnumerator endGame () {
+		yield return null;
 	}
 }
