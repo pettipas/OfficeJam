@@ -13,7 +13,7 @@ public class FireManager : MonoBehaviour {
 	[SerializeField]
 	protected List<ParticleSystem> additionalFires;
 
-	protected List<int> enabledFires;
+	protected int lastEnabledFire;
 
 	void Awake(){
 		Instance = this;
@@ -21,7 +21,7 @@ public class FireManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		enabledFires = new List<int>();
+		lastEnabledFire = 0;
 		Initialize ();
 	}
 
@@ -38,44 +38,40 @@ public class FireManager : MonoBehaviour {
 			}
 		}
 
-		enabledFires.Clear ();
+		lastEnabledFire = 0;
 	}
 	
 	public void EnableFire () {
 
-		if (enabledFires.Count < additionalFires.Count) {
-
-			// choose a random fire
-			int rnd = 0;
-			do {
-				rnd = Random.Range (0, additionalFires.Count);
-
-			} while (enabledFires.Contains (rnd));
+		if (lastEnabledFire < additionalFires.Count) {
 
 			// add it to the list of enabled fires
-			additionalFires[rnd].enableEmission = true;
-			foreach (ParticleSystem cps in additionalFires[rnd].GetComponentsInChildren<ParticleSystem>()) {
+			additionalFires[lastEnabledFire].enableEmission = true;
+			foreach (ParticleSystem cps in additionalFires[lastEnabledFire].GetComponentsInChildren<ParticleSystem>()) {
 				cps.enableEmission = true;
 			}
-			enabledFires.Add (rnd);
+			lastEnabledFire++;
 		}
 	}
 
 	public void DisableFire () {
+		int counter = 3;
+		while (counter > 0) {
+			if (lastEnabledFire > 0) {
+				additionalFires[lastEnabledFire].enableEmission = false;
+				foreach (ParticleSystem cps in additionalFires[lastEnabledFire].GetComponentsInChildren<ParticleSystem>()) {
+					cps.enableEmission = false;
+				}
+				lastEnabledFire--;
 
-		if (enabledFires.Count > 0) {
-			int rnd = Random.Range (0, enabledFires.Count);
-			additionalFires[enabledFires[rnd]].enableEmission = false;
-			foreach (ParticleSystem cps in additionalFires[enabledFires[rnd]].GetComponentsInChildren<ParticleSystem>()) {
-				cps.enableEmission = false;
+			} else {
+				mainFire.enableEmission = false;
+				foreach (ParticleSystem cps in mainFire.GetComponentsInChildren<ParticleSystem>()) {
+					cps.enableEmission = false;
+				}
+				gameOverManager.EndGame ();
 			}
-			enabledFires.Remove (rnd);
-		} else {
-			mainFire.enableEmission = false;
-			foreach (ParticleSystem cps in mainFire.GetComponentsInChildren<ParticleSystem>()) {
-				cps.enableEmission = false;
-			}
-			gameOverManager.EndGame ();
+			counter--;
 		}
 
 	}
