@@ -10,6 +10,8 @@ public class ItemManager : MonoBehaviour {
 		public Image  displayedItemImage;
 		public string itemName;
 		public GameObject itemGameObject;
+		public bool willIgnite;
+		public int pointValue;
 	}
 
 	// list population
@@ -19,6 +21,10 @@ public class ItemManager : MonoBehaviour {
 	protected List<string> itemNames;
 	[SerializeField]
 	protected List<GameObject> itemGameObjects;
+	[SerializeField]
+	protected List<bool> itemWillIgnite;
+	[SerializeField]
+	protected List<int> itemPointValue;
 
 	// climbing item rotation
 	public List<Item> items;

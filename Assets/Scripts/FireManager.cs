@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class FireManager : MonoBehaviour {
-	
+
+	[SerializeField]
+	protected GameOverManager gameOverManager;
 	[SerializeField]
 	protected ParticleSystem mainFire;
 	[SerializeField]
@@ -53,11 +55,19 @@ public class FireManager : MonoBehaviour {
 		}
 	}
 
-	public void SmotherFire () {
-		Initialize ();
-		mainFire.enableEmission = false;
-		foreach (ParticleSystem cps in mainFire.GetComponentsInChildren<ParticleSystem>()) {
-			cps.enableEmission = false;
+	public void DisableFire () {
+
+		if (enabledFires.Count > 0) {
+			int rnd = Random.Range (0, enabledFires.Count);
+			additionalFires[enabledFires[rnd]].enableEmission = false;
+			foreach (ParticleSystem cps in additionalFires[enabledFires[rnd]].GetComponentsInChildren<ParticleSystem>()) {
+				cps.enableEmission = false;
+			}
+		} else {
+			mainFire.enableEmission = false;
+			foreach (ParticleSystem cps in mainFire.GetComponentsInChildren<ParticleSystem>()) {
+				cps.enableEmission = false;
+			}
 		}
 
 	}
