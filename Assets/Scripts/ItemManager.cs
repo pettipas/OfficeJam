@@ -62,8 +62,7 @@ public class ItemManager : MonoBehaviour {
 			rotateTimer = 1.0F;
 		}
 	}
-
-
+	
 	/// <summary>
 	/// Increments to the next item in the item order
 	/// </summary>
@@ -72,9 +71,11 @@ public class ItemManager : MonoBehaviour {
 		int index = currentItemIndex;
 		index++;
 
-		if (currentItemIndex >= items.Count) {
-			currentItemIndex = 0;
+		if (index >= items.Count) {
+			index = 0;
 		}
+
+		ChangeItemImage (index);
 	}
 
 	public void ChangeItemImage (int newItemIndex) {
@@ -89,5 +90,7 @@ public class ItemManager : MonoBehaviour {
 		items[currentItemIndex].itemImage.enabled = true;
 	}
 
+	public void GetCurrentItem () {
 
+	}
 }
