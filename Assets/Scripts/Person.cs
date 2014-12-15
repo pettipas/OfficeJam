@@ -4,8 +4,6 @@ using System.Collections;
 
 public class Person : MonoBehaviour {
 
-	public Sprite characterImage;
-
 	// Use this for initialization
 	void Start () {
 	

@@ -73,8 +73,8 @@ public class FireManager : MonoBehaviour {
 			mainFire.enableEmission = false;
 			foreach (ParticleSystem cps in mainFire.GetComponentsInChildren<ParticleSystem>()) {
 				cps.enableEmission = false;
-				gameOverManager.EndGame ();
 			}
+			gameOverManager.EndGame ();
 		}
 
 	}

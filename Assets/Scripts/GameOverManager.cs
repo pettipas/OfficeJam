@@ -33,11 +33,16 @@ public class GameOverManager : MonoBehaviour {
 	}
 
 	public void EndGame () {
-		isGameOver = true;
-		StartCoroutine (endGame());
+		if (!isGameOver) {
+			isGameOver = true;
+			StartCoroutine (endGame());
+		}
 	}
 
 	protected IEnumerator endGame () {
+		
+		// enable the gameOver panel
+		gameOverPanel.SetActive (true);
 
 		// set the characters
 		characterText.text = selector.selectedPerson.name;
@@ -52,20 +57,17 @@ public class GameOverManager : MonoBehaviour {
 		ruinedText.color = newColor;
 		christmasText.color = newColor;
 		characterImage.color = newColor;
-
-		// enable the gameOver panel
-		gameOverPanel.SetActive (true);
 		
 		// fade in the background
 		float timer = 0.0F;
-		for (timer = 0.0F; timer < 1.0F; timer += Time.deltaTime * 2.0F) {
+		for (timer = 0.0F; timer < 1.0F; timer += Time.deltaTime) {
 			newColor.a = timer;
 			background.color = newColor;
 			yield return null;
 		}
 		
 		// fade in the character
-		for (timer = 0.0F; timer < 1.0F; timer += Time.deltaTime * 2.0F) {
+		for (timer = 0.0F; timer < 1.0F; timer += Time.deltaTime) {
 			newColor.a = timer;
 			characterText.color = newColor;
 			characterImage.color = newColor;
@@ -73,14 +75,14 @@ public class GameOverManager : MonoBehaviour {
 		}
 		
 		// fade in the ruined
-		for (timer = 0.0F; timer < 1.0F; timer += Time.deltaTime * 2.0F) {
+		for (timer = 0.0F; timer < 1.0F; timer += Time.deltaTime) {
 			newColor.a = timer;
 			ruinedText.color = newColor;
 			yield return null;
 		}
 		
 		// fade in the christmas
-		for (timer = 0.0F; timer < 1.0F; timer += Time.deltaTime * 2.0F) {
+		for (timer = 0.0F; timer < 1.0F; timer += Time.deltaTime) {
 			newColor.a = timer;
 			christmasText.color = newColor;
 			yield return null;
