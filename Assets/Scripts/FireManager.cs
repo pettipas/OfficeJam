@@ -69,6 +69,7 @@ public class FireManager : MonoBehaviour {
 			foreach (ParticleSystem cps in additionalFires[enabledFires[rnd]].GetComponentsInChildren<ParticleSystem>()) {
 				cps.enableEmission = false;
 			}
+			enabledFires.Remove (rnd);
 		} else {
 			mainFire.enableEmission = false;
 			foreach (ParticleSystem cps in mainFire.GetComponentsInChildren<ParticleSystem>()) {

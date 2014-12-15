@@ -88,6 +88,8 @@ public class GameOverManager : MonoBehaviour {
 			yield return null;
 		}
 
-		yield return null;
+		yield return new WaitForSeconds (5.0F);
+
+		Application.LoadLevel ("Main");
 	}
 }

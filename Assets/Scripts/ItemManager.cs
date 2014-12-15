@@ -27,8 +27,12 @@ public class ItemManager : MonoBehaviour {
 	protected int currentItemIndex;
 	protected float rotateTimer;
 
+	public static ItemManager Instance;
+
 	// Use this for initialization
 	void Start () {
+
+		Instance = this;
 
 		// create the item list
 		baseItems = new List<Item>();
