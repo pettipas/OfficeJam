@@ -28,7 +28,6 @@ public class Selector : MonoBehaviour {
 				Vector2 dir = (mp - pp).normalized;
 
 				float distance = Vector2.Distance(mp,pp);
-				Debug.Log (distance);
 				GameObject go = (GameObject)Instantiate(itemManger.GetCurrentItem(),selectedPerson.transform.position,Quaternion.identity);
 				go.rigidbody2D.AddForce(dir * 100 * distance);
 				go.rigidbody2D.AddTorque(((Random.value+0.1f)* 100 * distance)/2.0f);
