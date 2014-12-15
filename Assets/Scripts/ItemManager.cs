@@ -22,6 +22,7 @@ public class ItemManager : MonoBehaviour {
 
 	// climbing item rotation
 	public List<Item> items;
+	public List<Item> baseItems;
 	public float rotateSpeed;
 	protected int currentItemIndex;
 	protected float rotateTimer;
@@ -30,16 +31,7 @@ public class ItemManager : MonoBehaviour {
 	void Start () {
 
 		// create the item list
-		items = new List<Item>();
-
-		// initialize the item list;
-		Initialize ();
-	}
-
-	public void Initialize () {
-
-		// initaialize the item list;
-		items.Clear ();
+		baseItems = new List<Item>();
 		for (int i = 0; i < itemImages.Count; i++) {
 			Item it = new Item ();
 			it.itemImage = itemImages[i];
@@ -48,8 +40,18 @@ public class ItemManager : MonoBehaviour {
 			it.itemGameObject = itemGameObjects[i];
 			
 			// add it to the list
-			items.Add (it);
+			baseItems.Add (it);
 		}
+		items = baseItems;
+
+		// initialize the item list;
+		Initialize ();
+	}
+
+	public void Initialize () {
+
+		// initaialize the item list
+
 
 		// reset the timer and item selection variables
 		rotateTimer = 1.0F;
